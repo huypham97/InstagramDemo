@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">Instagram Clone</string>
+
+    <string name="network_connection_error">Internet connection lost, please retry again</string>
+    <string name="network_default_error">Something wrong happened, please retry again</string>
+    <string name="network_internal_error">Our systems got an error, please retry again</string>
+    <string name="network_server_not_available">Our services are under maintenance, please retry after sometime</string>
+    <string name="server_connection_error">Not able to connect, please retry again</string>
+    <string name="network_login_again">Please log in again</string>
+    <!--Login-->
+    <string name="email_hint">Enter your email</string>
+    <string name="password_hint">Enter your Password</string>
+    <string name="login_label">Login</string>
+    <string name="email_field_empty">Email can\'t be empty</string>
+    <string name="password_field_empty">Password can\'t be empty</string>
+    <string name="email_field_invalid">Not a valid email</string>
+    <string name="password_field_small_length">Password less than 6 digits</string>
+    <string name="app_logo_content_desc">Instagram Clone App Logo</string>
+    <string name="label_or">OR</string>
+    <string name="signup_email_label">Sign Up with Email</string>
+    <string name="person_name_hint">Enter your full name</string>
+    <string name="signup_label">Sign Up</string>
+    <string name="login_email_label">Login with Email</string>
+
+    <!-- Shared Element Transition -->
+    <string name="shared_element_app_logo">appLogo</string>
+    <string name="shared_element_name">name_field</string>
+    <string name="shared_element_email">email_field</string>
+    <string name="shared_element_password">password_field</string>
+    <string name="shared_element_post">postTransition</string>
+</resources>
