@@ -6,6 +6,4 @@ public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<
 
     void onLogin(String email, String password);
 
-    void onSignUpWithEmail();
-
 }

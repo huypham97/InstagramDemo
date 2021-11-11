@@ -41,6 +41,12 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.onDetach();
+    }
+
+    @Override
     protected void injectDependencies(ActivityComponent buildActivityComponent) {
         buildActivityComponent.inject(this);
     }
@@ -87,5 +93,15 @@ public class SplashActivity extends BaseActivity implements SplashMvpView {
                 finish();
             }
         }.start();
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
     }
 }
