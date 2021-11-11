@@ -1,4 +1,11 @@
 package com.huypham.instagramdemo.ui.login;
 
-public interface LoginMvpPresenter {
+import com.huypham.instagramdemo.ui.base.MvpPresenter;
+
+public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<V> {
+
+    void onLogin(String email, String password);
+
+    void onSignUpWithEmail();
+
 }
