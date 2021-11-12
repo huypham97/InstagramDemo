@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.huypham.instagramdemo.R;
 import com.huypham.instagramdemo.di.component.ActivityComponent;
 import com.huypham.instagramdemo.ui.base.BaseActivity;
+import com.huypham.instagramdemo.ui.login.signUp.SignUpActivity;
 import com.huypham.instagramdemo.ui.main.MainActivity;
 import com.huypham.instagramdemo.ui.splash.SplashActivity;
 
@@ -80,6 +81,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                 openSignUpActivity();
             }
         });
+
     }
 
     @Override
@@ -90,7 +92,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void openSignUpActivity() {
-
+        startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
     }
 
     @Override
