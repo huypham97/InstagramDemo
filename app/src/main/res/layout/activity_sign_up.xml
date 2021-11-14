@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:hint="@string/email_hint"
+        android:hint="@string/person_name_hint"
         app:boxStrokeColor="@color/colorPrimaryDark"
         app:layout_constraintBottom_toTopOf="@id/layoutEmail"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,6 +61,7 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:transitionName="@string/shared_element_email"
             android:inputType="textEmailAddress"
             android:maxLines="1"
             android:textSize="16sp" />
@@ -92,11 +93,11 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginTop="16dp"
-        android:text="@string/login_label"
+        android:text="@string/signup_label"
         android:textColor="@color/white"
         android:backgroundTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -121,10 +122,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSignUp" />
 
     <TextView
-        android:id="@+id/tvSignUpEmail"
+        android:id="@+id/tvLoginEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

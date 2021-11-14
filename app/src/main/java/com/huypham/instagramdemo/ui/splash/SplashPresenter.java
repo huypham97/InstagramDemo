@@ -21,9 +21,7 @@ public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> i
     }
 
     @Override
-    public void onAttach(V mvpView) {
-        super.onAttach(mvpView);
-
+    protected void updateView() {
         if (userRepository.getCurrentUser() != null) {
             getMvpView().openMainActivity();
         } else {

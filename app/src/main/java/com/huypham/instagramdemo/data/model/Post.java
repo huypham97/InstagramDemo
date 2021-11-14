@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 import java.util.List;
 
-public class Post {
+public class Post implements Comparable<Post> {
 
     public Post() {
     }
@@ -48,6 +48,16 @@ public class Post {
     @Expose
     @SerializedName("createdAt")
     public Date createdAt;
+
+    @Override
+    public int compareTo(Post o) {
+        if (this.createdAt.after(o.createdAt))
+            return 1;
+        else if (this.createdAt.before(o.createdAt))
+            return -1;
+        else
+            return 0;
+    }
 
     public static class User {
         public User() {

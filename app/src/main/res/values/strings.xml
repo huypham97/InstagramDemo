@@ -11,6 +11,7 @@
     <string name="email_hint">Enter your email</string>
     <string name="password_hint">Enter your Password</string>
     <string name="login_label">Login</string>
+    <string name="name_field_empty">Name can\'t be empty</string>
     <string name="email_field_empty">Email can\'t be empty</string>
     <string name="password_field_empty">Password can\'t be empty</string>
     <string name="email_field_invalid">Not a valid email</string>
@@ -28,4 +29,31 @@
     <string name="shared_element_email">email_field</string>
     <string name="shared_element_password">password_field</string>
     <string name="shared_element_post">postTransition</string>
+
+    <!-- Menu -->
+    <string name="menu_home">Home</string>
+    <string name="menu_photo">Photo</string>
+    <string name="menu_profile">Photo</string>
+
+    <!-- Posts -->
+    <string name="post_like_label">%1d Likes</string>
+
+    <!-- Photo -->
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="try_again">Please try again</string>
+    <string name="add_image_label">Add an image</string>
+
+    <!-- Profile -->
+    <string name="logout_label">Logout</string>
+    <string name="post_count_label">%1d Posts</string>
+    <string name="edit_profile_label">Edit Profile</string>
+    <string name="my_posts_label">My Posts</string>
+    <string name="change_photo_label">Change Photo</string>
+    <string name="name_hint">Name</string>
+    <string name="bio_hint">Bio</string>
+    <string name="private_info_label">Private Information</string>
+    <string name="email_label">Email Address</string>
+    <string name="no_posts">No Posts</string>
+
 </resources>

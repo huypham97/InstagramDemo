@@ -14,4 +14,6 @@ public interface MvpView {
 
     boolean isNetworkConnected();
 
+    boolean checkInternetConnectionWithMessage();
+
 }

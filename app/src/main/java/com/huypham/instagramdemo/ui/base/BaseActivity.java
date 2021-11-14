@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.huypham.instagramdemo.InstagramApplication;
+import com.huypham.instagramdemo.R;
 import com.huypham.instagramdemo.di.component.ActivityComponent;
 import com.huypham.instagramdemo.di.component.DaggerActivityComponent;
 import com.huypham.instagramdemo.di.module.ActivityModule;
@@ -13,7 +14,7 @@ import com.huypham.instagramdemo.utils.network.NetworkUtils;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public abstract class BaseActivity extends AppCompatActivity implements MvpView {
+public abstract class BaseActivity extends AppCompatActivity implements MvpView, BaseFragment.CallBack {
 
     @Override
     protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
@@ -29,6 +30,10 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
                 .applicationComponent(((InstagramApplication) getApplication()).getComponent())
                 .activityModule(new ActivityModule(this))
                 .build();
+    }
+
+    public ActivityComponent getActivityComponent() {
+        return buildActivityComponent();
     }
 
     @Override
@@ -47,6 +52,16 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
     }
 
     @Override
+    public boolean checkInternetConnectionWithMessage() {
+        if (isNetworkConnected()) {
+            return true;
+        } else {
+            showMessage(R.string.network_connection_error);
+            return false;
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStackImmediate();
@@ -58,4 +73,14 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView 
     protected abstract int provideLayoutId();
 
     protected abstract void setUpView();
+
+    @Override
+    public void onFragmentAttached() {
+
+    }
+
+    @Override
+    public void onFragmentDetached(String tag) {
+
+    }
 }

@@ -9,17 +9,19 @@ import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
 
 import java.net.HttpURLConnection;
 
+import javax.inject.Inject;
 import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
+public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     protected SchedulerProvider schedulerProvider;
     protected CompositeDisposable compositeDisposable;
 
     private V mvpView;
 
+    @Inject
     public BasePresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {
         this.schedulerProvider = schedulerProvider;
         this.compositeDisposable = compositeDisposable;
@@ -40,7 +42,7 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     @Override
     public void onAttach(V mvpView) {
         this.mvpView = mvpView;
-        Log.d("TEST", "onAttach: " + mvpView);
+        updateView();
     }
 
     @Override
@@ -82,4 +84,6 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
     public boolean isViewAttached() {
         return mvpView != null;
     }
+
+    protected abstract void updateView();
 }

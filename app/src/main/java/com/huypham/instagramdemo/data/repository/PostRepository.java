@@ -1,5 +1,7 @@
 package com.huypham.instagramdemo.data.repository;
 
+import android.util.Log;
+
 import com.huypham.instagramdemo.data.model.Post;
 import com.huypham.instagramdemo.data.model.User;
 import com.huypham.instagramdemo.data.remote.NetworkService;

@@ -2,7 +2,10 @@ package com.huypham.instagramdemo.di.component;
 
 import com.huypham.instagramdemo.di.ActivityScope;
 import com.huypham.instagramdemo.di.module.ActivityModule;
+import com.huypham.instagramdemo.ui.home.HomeFragment;
 import com.huypham.instagramdemo.ui.login.LoginActivity;
+import com.huypham.instagramdemo.ui.login.signUp.SignUpActivity;
+import com.huypham.instagramdemo.ui.main.MainActivity;
 import com.huypham.instagramdemo.ui.splash.SplashActivity;
 
 import dagger.Component;
@@ -15,4 +18,9 @@ public interface ActivityComponent {
 
     void inject(LoginActivity activity);
 
+    void inject(SignUpActivity activity);
+
+    void inject(MainActivity activity);
+
+    void inject(HomeFragment homeFragment);
 }

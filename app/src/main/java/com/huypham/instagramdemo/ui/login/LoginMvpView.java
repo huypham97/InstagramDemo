@@ -6,6 +6,4 @@ public interface LoginMvpView extends MvpView {
 
     void openMainActivity();
 
-    void openSignUpActivity();
-
 }
