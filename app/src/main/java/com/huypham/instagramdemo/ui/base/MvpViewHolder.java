@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public interface MvpViewHolder<P extends MvpPresenter> {
+public interface MvpViewHolder<P extends MvpPresenter> extends MvpView {
 
     public void attachPresenter(P presenter);
 

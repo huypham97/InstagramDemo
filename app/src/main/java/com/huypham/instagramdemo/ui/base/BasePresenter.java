@@ -1,7 +1,5 @@
 package com.huypham.instagramdemo.ui.base;
 
-import android.util.Log;
-
 import com.huypham.instagramdemo.R;
 import com.huypham.instagramdemo.utils.network.NetworkError;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
