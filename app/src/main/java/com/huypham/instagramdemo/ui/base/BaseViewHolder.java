@@ -7,18 +7,21 @@ import org.jetbrains.annotations.NotNull;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public abstract class BaseViewHolder extends RecyclerView.ViewHolder {
+public class BaseViewHolder<P extends BasePresenter> extends RecyclerView.ViewHolder implements MvpViewHolder<P> {
 
-    private int currentPosition;
+    protected P presenter;
 
     public BaseViewHolder(@NonNull @NotNull View itemView) {
         super(itemView);
     }
 
-    protected abstract void clear();
+    @Override
+    public void attachPresenter(P presenter) {
 
-    public void onBind(int position) {
-        currentPosition = position;
-        clear();
+    }
+
+    @Override
+    public void detachPresenter() {
+
     }
 }

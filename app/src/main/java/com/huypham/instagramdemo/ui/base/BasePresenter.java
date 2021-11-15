@@ -14,11 +14,12 @@ import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
+public class BasePresenter<M, V extends MvpView> implements MvpPresenter<V> {
 
     protected SchedulerProvider schedulerProvider;
     protected CompositeDisposable compositeDisposable;
 
+    protected M model;
     private V mvpView;
 
     @Inject
@@ -27,12 +28,8 @@ public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
         this.compositeDisposable = compositeDisposable;
     }
 
-    public SchedulerProvider getSchedulerProvider() {
-        return schedulerProvider;
-    }
-
-    public CompositeDisposable getCompositeDisposable() {
-        return compositeDisposable;
+    public void setModel(M model) {
+        this.model = model;
     }
 
     public V getMvpView() {

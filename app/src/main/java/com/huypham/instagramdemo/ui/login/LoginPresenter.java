@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Consumer;
 
-public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> implements LoginMvpPresenter<V> {
+public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<Object, V> implements LoginMvpPresenter<V> {
 
     private UserRepository userRepository;
 
@@ -50,7 +50,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V> imp
         }
 
         getMvpView().showLoading();
-        getCompositeDisposable().add(
+        compositeDisposable.add(
                 userRepository.doLoginUser(email, password)
                         .observeOn(schedulerProvider.ui())
                         .subscribeOn(schedulerProvider.io())

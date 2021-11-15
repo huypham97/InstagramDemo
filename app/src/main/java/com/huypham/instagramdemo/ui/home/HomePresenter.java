@@ -25,15 +25,13 @@ import io.reactivex.rxjava3.functions.Consumer;
 import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.processors.PublishProcessor;
 
-public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> implements HomeMvpPresenter<V> {
+public class HomePresenter<V extends HomeMvpView> extends BasePresenter<User, V> implements HomeMvpPresenter<V> {
 
     private NetworkUtils networkUtils;
     private UserRepository userRepository;
     private PostRepository postRepository;
     private List<Post> allPosts;
     private PublishProcessor<Pair<String, String>> pagination;
-
-    private User user;
 
     String firstPostId = null, lastPostId = null;
 
@@ -56,7 +54,7 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
     @Override
     public void onViewPrepared() {
         if (userRepository.getCurrentUser() != null)
-            user = userRepository.getCurrentUser();
+            model = userRepository.getCurrentUser();
 
         compositeDisposable.add(
                 pagination
@@ -73,7 +71,7 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
                                 return postRepository.fetchHomePostList(
                                         pageIds.first,
                                         pageIds.second,
-                                        user
+                                        model
                                 )
                                         .subscribeOn(schedulerProvider.io())
                                         .observeOn(schedulerProvider.ui())
@@ -119,5 +117,4 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
     public void onNewPost(Post newPost) {
 
     }
-
 }

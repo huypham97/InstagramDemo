@@ -14,7 +14,7 @@ import javax.inject.Inject;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.functions.Consumer;
 
-public class SignUpPresenter<V extends SignUpMvpView> extends BasePresenter<V> implements SignUpMvpPresenter<V> {
+public class SignUpPresenter<V extends SignUpMvpView> extends BasePresenter<Object, V> implements SignUpMvpPresenter<V> {
 
     private UserRepository userRepository;
 
@@ -55,7 +55,7 @@ public class SignUpPresenter<V extends SignUpMvpView> extends BasePresenter<V> i
         }
 
         getMvpView().showLoading();
-        getCompositeDisposable().addAll(
+        compositeDisposable.addAll(
                 userRepository.doSignUpUser(email, password, name)
                 .observeOn(schedulerProvider.ui())
                 .subscribeOn(schedulerProvider.io())

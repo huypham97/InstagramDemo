@@ -7,7 +7,7 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class MainPresenter<V extends MainMvpView> extends BasePresenter<V> implements MainMvpPresenter<V> {
+public class MainPresenter<V extends MainMvpView> extends BasePresenter<Object, V> implements MainMvpPresenter<V> {
 
     @Inject
     public MainPresenter(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable) {

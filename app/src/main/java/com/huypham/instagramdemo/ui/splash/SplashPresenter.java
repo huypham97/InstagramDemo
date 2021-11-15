@@ -8,7 +8,7 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<V> implements SplashMvpPresenter<V> {
+public class SplashPresenter<V extends SplashMvpView> extends BasePresenter<Object, V> implements SplashMvpPresenter<V> {
 
     private UserRepository userRepository;
 
