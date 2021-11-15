@@ -14,7 +14,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
+public class BasePresenter<V extends MvpView> implements MvpPresenter<V> {
 
     protected SchedulerProvider schedulerProvider;
     protected CompositeDisposable compositeDisposable;
@@ -42,7 +42,6 @@ public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V
     @Override
     public void onAttach(V mvpView) {
         this.mvpView = mvpView;
-        updateView();
     }
 
     @Override
@@ -85,5 +84,4 @@ public abstract class BasePresenter<V extends MvpView> implements MvpPresenter<V
         return mvpView != null;
     }
 
-    protected abstract void updateView();
 }

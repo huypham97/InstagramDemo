@@ -120,8 +120,4 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<V> imple
 
     }
 
-    @Override
-    protected void updateView() {
-        
-    }
 }
