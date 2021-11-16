@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
 import com.huypham.instagramdemo.R;
 import com.huypham.instagramdemo.data.model.Image;
 import com.huypham.instagramdemo.data.model.Post;
@@ -104,9 +105,21 @@ public class PostAdapter extends RecyclerView.Adapter<BaseViewHolder> {
                 ivLike.setImageResource(R.drawable.ic_heart_unselected);
             }
 
-            Image imgPost = new Image(post.imgUrl, headers);
+            Image profileImage = new Image(post.creator.profilePicUrl, headers);
             RequestBuilder<Drawable> glideRequest = Glide.with(ivProfile.getContext())
-                    .load(GlideHelper.getProtectedUrl())
+                    .load(GlideHelper.getProtectedUrl(post.creator.profilePicUrl, headers))
+                    .apply(RequestOptions.circleCropTransform())
+                    .apply(RequestOptions.placeholderOf(R.drawable.ic_profile_selected));
+
+            if (profileImage.placeholderWidth > 0 && profileImage.placeholderHeight > 0) {
+                ViewGroup.LayoutParams params = ivProfile.getLayoutParams();
+                params.width = profileImage.placeholderWidth;
+                params.height = profileImage.placeholderHeight;
+                ivProfile.setLayoutParams(params);
+                glideRequest.apply(RequestOptions.overrideOf(profileImage.placeholderWidth, profileImage.placeholderHeight))
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_heart_unselected));
+                glideRequest.into(ivProfile);
+            }
         }
 
         private boolean isLiked(Post post) {

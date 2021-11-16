@@ -11,8 +11,8 @@ public class GlideHelper {
         LazyHeaders.Builder builder = new LazyHeaders.Builder();
         for (Map.Entry<String, String> entry : headers.entrySet()) {
             builder.addHeader(entry.getKey(), entry.getValue());
-            return new GlideUrl(url, builder.build());
         }
+        return new GlideUrl(url, builder.build());
     }
 
 }
