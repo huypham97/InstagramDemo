@@ -4,10 +4,12 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.huypham.instagramdemo.data.model.Post;
+import com.huypham.instagramdemo.data.repository.UserRepository;
 import com.huypham.instagramdemo.di.ActivityContext;
 import com.huypham.instagramdemo.ui.home.HomeMvpPresenter;
 import com.huypham.instagramdemo.ui.home.HomeMvpView;
 import com.huypham.instagramdemo.ui.home.HomePresenter;
+import com.huypham.instagramdemo.ui.home.posts.PostAdapter;
 import com.huypham.instagramdemo.ui.login.LoginMvpPresenter;
 import com.huypham.instagramdemo.ui.login.LoginMvpView;
 import com.huypham.instagramdemo.ui.login.LoginPresenter;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 import dagger.Module;
 import dagger.Provides;
 import io.reactivex.rxjava3.processors.PublishProcessor;
@@ -74,6 +78,11 @@ public class ActivityModule {
     }
 
     @Provides
+    PostAdapter providePostAdapter(UserRepository userRepository) {
+        return new PostAdapter(new ArrayList<Post>(), userRepository);
+    }
+
+    @Provides
     List<Post> providePostList() {
         return new ArrayList<>();
     }
@@ -81,5 +90,10 @@ public class ActivityModule {
     @Provides
     PublishProcessor<Pair<String, String>> providePagination() {
         return PublishProcessor.create();
+    }
+
+    @Provides
+    LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
+        return new LinearLayoutManager(activity);
     }
 }

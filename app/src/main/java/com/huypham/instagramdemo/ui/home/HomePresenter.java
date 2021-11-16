@@ -86,8 +86,8 @@ public class HomePresenter<V extends HomeMvpView> extends BasePresenter<User, V>
                         .subscribe(new Consumer<List<Post>>() {
                             @Override
                             public void accept(List<Post> postList) throws Throwable {
-                                Log.d("TEST", "accept: ");
                                 allPosts.addAll(postList);
+                                getMvpView().updatePost(postList);
 
                                 firstPostId = Collections.max(allPosts).id;
                                 lastPostId = Collections.min(allPosts).id;

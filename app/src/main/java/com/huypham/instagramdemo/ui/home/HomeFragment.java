@@ -9,8 +9,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.huypham.instagramdemo.R;
+import com.huypham.instagramdemo.data.model.Post;
 import com.huypham.instagramdemo.di.component.ActivityComponent;
 import com.huypham.instagramdemo.ui.base.BaseFragment;
+import com.huypham.instagramdemo.ui.home.posts.PostAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -18,15 +20,27 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class HomeFragment extends BaseFragment implements HomeMvpView {
 
     public static final String TAG = "HomeFragment";
 
+    RecyclerView rvPosts;
     ProgressBar pbLoading;
 
     @Inject
     HomeMvpPresenter<HomeMvpView> presenter;
+
+    @Inject
+    PostAdapter postAdapter;
+
+    @Inject
+    LinearLayoutManager layoutManager;
 
     private HomeFragment() {
         // Required empty public constructor
@@ -59,16 +73,20 @@ public class HomeFragment extends BaseFragment implements HomeMvpView {
 
     @Override
     protected void setUpView(View view) {
-        Log.d("TEST", "setUpView: ");
+        rvPosts = view.findViewById(R.id.rvPosts);
         pbLoading = view.findViewById(R.id.pbLoading);
 
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rvPosts.setLayoutManager(layoutManager);
+        rvPosts.setItemAnimator(new DefaultItemAnimator());
+        rvPosts.setAdapter(postAdapter);
 
         presenter.onViewPrepared();
     }
 
     @Override
-    public void updatePost() {
-
+    public void updatePost(List<Post> postList) {
+        postAdapter.addItems(postList);
     }
 
     @Override
