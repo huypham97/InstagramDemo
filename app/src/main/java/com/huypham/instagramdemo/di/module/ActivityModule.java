@@ -1,84 +1,52 @@
 package com.huypham.instagramdemo.di.module;
 
-import android.content.Context;
 import android.util.Pair;
 
-import com.huypham.instagramdemo.data.model.Post;
-import com.huypham.instagramdemo.data.repository.UserRepository;
-import com.huypham.instagramdemo.di.ActivityContext;
-import com.huypham.instagramdemo.ui.home.HomePresenter;
-
-import java.util.ArrayList;
-import java.util.List;
-
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.util.Supplier;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import com.huypham.instagramdemo.data.repository.UserRepository;
+import com.huypham.instagramdemo.ui.base.BaseActivity;
+import com.huypham.instagramdemo.ui.splash.SplashViewModel;
+import com.huypham.instagramdemo.utils.ViewModelProviderFactory;
+import com.huypham.instagramdemo.utils.network.NetworkUtils;
+import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
+
 
 import dagger.Module;
 import dagger.Provides;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.processors.PublishProcessor;
 
 @Module
 public class ActivityModule {
-    private AppCompatActivity activity;
+    private BaseActivity<?> activity;
 
-    public ActivityModule(AppCompatActivity activity) {
+    public ActivityModule(BaseActivity<?> activity) {
         this.activity = activity;
     }
 
     @Provides
-    @ActivityContext
-    Context provideContext() {
-        return activity;
-    }
-
-    @Provides
-    AppCompatActivity provideActivity() {
-        return activity;
-    }
-
-    @Provides
-    SplashMvpPresenter<SplashMvpView> provideSplashPresenter(SplashPresenter<SplashMvpView> presenter) {
-        return presenter;
-    }
-
-    @Provides
-    LoginMvpPresenter<LoginMvpView> provideLoginPresenter(LoginPresenter<LoginMvpView> presenter) {
-        return presenter;
-    }
-
-    @Provides
-    SignUpMvpPresenter<SignUpMvpView> provideSignUpPresenter(SignUpPresenter<SignUpMvpView> presenter) {
-        return presenter;
-    }
-
-    @Provides
-    MainMvpPresenter<MainMvpView> provideMainPresenter(MainPresenter<MainMvpView> presenter) {
-        return presenter;
-    }
-
-    @Provides
-    HomeMvpPresenter<HomeMvpView> provideHomePresenter(HomePresenter<HomeMvpView> presenter) {
-        return presenter;
-    }
-
-    @Provides
-    PostAdapter providePostAdapter(UserRepository userRepository) {
-        return new PostAdapter(new ArrayList<Post>(), userRepository);
-    }
-
-    @Provides
-    List<Post> providePostList() {
-        return new ArrayList<>();
-    }
-
-    @Provides
-    PublishProcessor<Pair<String, String>> providePagination() {
-        return PublishProcessor.create();
+    SplashViewModel provideSplashViewModel(SchedulerProvider schedulerProvider,
+                                           CompositeDisposable compositeDisposable,
+                                           NetworkUtils networkUtils,
+                                           UserRepository userRepository) {
+        Supplier<SplashViewModel> supplier = () -> new SplashViewModel(schedulerProvider, compositeDisposable, networkUtils, userRepository);
+        ViewModelProviderFactory<SplashViewModel> factory = new ViewModelProviderFactory<>(SplashViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(SplashViewModel.class);
     }
 
     @Provides
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
+    }
+
+    @Provides
+    PublishProcessor<Pair<String, String>> providePagination() {
+        return PublishProcessor.create();
     }
 }

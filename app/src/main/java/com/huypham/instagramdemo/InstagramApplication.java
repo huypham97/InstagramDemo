@@ -8,11 +8,18 @@ import com.huypham.instagramdemo.di.module.ApplicationModule;
 
 public class InstagramApplication extends Application {
 
+    private static InstagramApplication instance;
+
+    public static InstagramApplication getInstance() {
+        return instance;
+    }
+
     ApplicationComponent applicationComponent;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         injectDependencies();
     }
 

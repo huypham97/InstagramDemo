@@ -15,12 +15,4 @@ import dagger.Component;
 public interface ActivityComponent {
 
     void inject(SplashActivity activity);
-
-    void inject(LoginActivity activity);
-
-    void inject(SignUpActivity activity);
-
-    void inject(MainActivity activity);
-
-    void inject(HomeFragment homeFragment);
 }

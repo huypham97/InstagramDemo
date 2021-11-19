@@ -3,21 +3,41 @@ package com.huypham.instagramdemo.ui.base;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.cmc.androidtraining.R;
-import com.cmc.androidtraining.utils.NetworkError;
-import com.cmc.androidtraining.utils.NetworkHelper;
+import com.huypham.instagramdemo.R;
+import com.huypham.instagramdemo.utils.network.NetworkError;
+import com.huypham.instagramdemo.utils.network.NetworkUtils;
+import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
 
 import java.net.HttpURLConnection;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+
 public abstract class BaseViewModel extends ViewModel {
+
+    protected SchedulerProvider schedulerProvider;
+    protected CompositeDisposable compositeDisposable;
+    protected NetworkUtils networkUtils;
+
+
+    public BaseViewModel(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, NetworkUtils networkUtils) {
+        this.schedulerProvider = schedulerProvider;
+        this.compositeDisposable = compositeDisposable;
+        this.networkUtils = networkUtils;
+    }
 
     MutableLiveData<Integer> messageStringId = new MutableLiveData<>();
     MutableLiveData<String> messageString = new MutableLiveData<>();
 
+    @Override
+    protected void onCleared() {
+        compositeDisposable.dispose();
+        super.onCleared();
+    }
+
     protected boolean checkInternetConnectionWithMessage() {
-        if (NetworkHelper.isNetworkConnected()) {
+        if (NetworkUtils.isNetworkConnected()) {
             return true;
         } else {
             messageStringId.postValue(R.string.network_connection_error);
@@ -26,11 +46,11 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
     protected boolean checkInternetConnection() {
-        return NetworkHelper.isNetworkConnected();
+        return NetworkUtils.isNetworkConnected();
     }
 
     protected void handleNetworkError(Throwable err) {
-        NetworkError networkError = NetworkHelper.castToNetworkError(err);
+        NetworkError networkError = NetworkUtils.castToNetworkError(err);
         switch (networkError.getStatus()) {
             case -1:
                 messageStringId.postValue(R.string.network_default_error);

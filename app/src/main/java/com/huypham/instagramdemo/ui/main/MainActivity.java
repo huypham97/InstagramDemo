@@ -23,6 +23,20 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
-public class MainActivity {
+public class MainActivity extends BaseActivity<MainViewModel> {
 
+    @Override
+    protected int provideLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void injectDependencies(ActivityComponent activityComponent) {
+
+    }
+
+    @Override
+    protected void setupView(Bundle savedInstanceState) {
+
+    }
 }

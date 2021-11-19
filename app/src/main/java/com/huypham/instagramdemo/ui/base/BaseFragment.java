@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
 
@@ -29,6 +30,19 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
     }
 
     protected void setupObserver() {
+        viewModel.messageString.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                showMessage(message);
+            }
+        });
+
+        viewModel.messageStringId.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer messageId) {
+                showMessage(messageId);
+            }
+        });
     }
 
     @Override
@@ -45,7 +59,13 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
         showMessage(getString(resId));
     }
 
-    protected abstract void setupView(View view);
+    public void goBack() {
+        if (getActivity() instanceof BaseActivity<?>) {
+            ((BaseActivity<?>) getActivity()).goBack();
+        }
+    }
 
     protected abstract int provideLayoutId();
+
+    protected abstract void setupView(View view);
 }

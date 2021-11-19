@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import com.huypham.instagramdemo.InstagramApplication;
 
 import java.io.IOException;
 import java.net.ConnectException;
@@ -17,8 +18,8 @@ public class NetworkUtils {
 
     private static final String TAG = "NetworkUtils";
 
-    public static boolean isNetworkConnected(Context context) {
-        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) InstagramApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }

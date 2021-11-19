@@ -31,6 +31,20 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class LoginActivity {
+public class LoginActivity extends BaseActivity<LoginViewModel> {
 
+    @Override
+    protected int provideLayoutId() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    protected void injectDependencies(ActivityComponent activityComponent) {
+
+    }
+
+    @Override
+    protected void setupView(Bundle savedInstanceState) {
+
+    }
 }
