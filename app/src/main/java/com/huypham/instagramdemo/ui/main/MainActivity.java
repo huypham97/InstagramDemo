@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Observer;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,11 +24,78 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity<MainViewModel> {
+
+    private Fragment activeFragment = null;
+
+    private BottomNavigationView bottomNavView;
 
     @Override
-    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected int provideLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void injectDependencies(ActivityComponent activityComponent) {
+        activityComponent.inject(this);
+    }
+
+    @Override
+    protected void setupView(Bundle savedInstanceState) {
+        bottomNavView = findViewById(R.id.bottomNavView);
+
+        bottomNavView.setItemIconTintList(null);
+        bottomNavView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull @NotNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.itemHome:
+                        viewModel.onHomeSelected();
+                        return true;
+                    case R.id.itemPhoto:
+                        viewModel.onPhotoSelected();
+                        return true;
+                    case R.id.itemProfile:
+                        viewModel.onProfileSelected();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
+    }
+
+    @Override
+    protected void setupObserver() {
+        super.setupObserver();
+        viewModel.homeNavigation.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                showHome();
+            }
+        });
+
+        viewModel.photoNavigation.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                showAddPhoto();
+            }
+        });
+
+        viewModel.profileNavigation.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                showProfile();
+            }
+        });
+    }
+
+    private void showHome() {
+    }
+
+    private void showProfile() {
+    }
+
+    private void showAddPhoto() {
     }
 }

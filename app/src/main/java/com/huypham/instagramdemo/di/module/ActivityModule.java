@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.huypham.instagramdemo.data.repository.UserRepository;
 import com.huypham.instagramdemo.ui.base.BaseActivity;
 import com.huypham.instagramdemo.ui.login.LoginViewModel;
+import com.huypham.instagramdemo.ui.login.signUp.SignUpViewModel;
 import com.huypham.instagramdemo.ui.splash.SplashViewModel;
 import com.huypham.instagramdemo.utils.ViewModelProviderFactory;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
@@ -57,6 +58,20 @@ public class ActivityModule {
                 userRepository);
         ViewModelProviderFactory<LoginViewModel> factory = new ViewModelProviderFactory<>(LoginViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(LoginViewModel.class);
+    }
+
+    @Provides
+    SignUpViewModel provideSignUpViewModel(SchedulerProvider schedulerProvider,
+                                           CompositeDisposable compositeDisposable,
+                                           NetworkUtils networkUtils,
+                                           UserRepository userRepository) {
+        Supplier<SignUpViewModel> supplier = () -> new SignUpViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkUtils,
+                userRepository);
+        ViewModelProviderFactory<SignUpViewModel> factory = new ViewModelProviderFactory<>(SignUpViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(SignUpViewModel.class);
     }
 
     @Provides

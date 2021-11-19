@@ -131,8 +131,8 @@ public class LoginActivity extends BaseActivity<LoginViewModel> {
 
         viewModel.loggingIn.observe(this, new Observer<Boolean>() {
             @Override
-            public void onChanged(Boolean isShow) {
-                if (isShow)
+            public void onChanged(Boolean isLogging) {
+                if (isLogging)
                     pbLoading.setVisibility(View.VISIBLE);
                 else
                     pbLoading.setVisibility(View.GONE);
