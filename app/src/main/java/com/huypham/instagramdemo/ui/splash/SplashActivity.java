@@ -21,7 +21,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-public class SplashActivity extends BaseActivity<SplashViewModel> implements SplashNavigator {
+public class SplashActivity extends BaseActivity<SplashViewModel> {
 
     public static final String TAG = "SplashActivity";
 
@@ -58,49 +58,39 @@ public class SplashActivity extends BaseActivity<SplashViewModel> implements Spl
         viewModel.launchMain.observe(this, new Observer<Map<String, String>>() {
             @Override
             public void onChanged(Map<String, String> stringStringMap) {
-                openMainActivity();
+                new CountDownTimer(1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                }.start();
             }
         });
 
         viewModel.launchLogin.observe(this, new Observer<Map<String, String>>() {
             @Override
             public void onChanged(Map<String, String> stringStringMap) {
-                openLoginActivity();
+                new CountDownTimer(1000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                                SplashActivity.this,
+                                ivLogo,
+                                getString(R.string.shared_element_app_logo));
+                        startActivity(new Intent(getApplicationContext(), LoginActivity.class), options.toBundle());
+                        shouldFinish = true;
+                    }
+                }.start();
             }
         });
-    }
-
-    @Override
-    public void openLoginActivity() {
-        new CountDownTimer(1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                        SplashActivity.this,
-                        ivLogo,
-                        getString(R.string.shared_element_app_logo));
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class), options.toBundle());
-                shouldFinish = true;
-            }
-        }.start();
-    }
-
-    @Override
-    public void openMainActivity() {
-        new CountDownTimer(1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-            }
-
-            @Override
-            public void onFinish() {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
-            }
-        }.start();
     }
 }

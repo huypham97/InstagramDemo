@@ -23,20 +23,11 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.inject.Inject;
 
-public class MainActivity extends BaseActivity<MainViewModel> {
+public class MainActivity extends AppCompatActivity {
 
     @Override
-    protected int provideLayoutId() {
-        return R.layout.activity_main;
-    }
-
-    @Override
-    protected void injectDependencies(ActivityComponent activityComponent) {
-
-    }
-
-    @Override
-    protected void setupView(Bundle savedInstanceState) {
-
+    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     }
 }

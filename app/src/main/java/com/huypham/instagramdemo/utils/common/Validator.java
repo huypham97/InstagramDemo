@@ -5,10 +5,10 @@ import java.util.regex.Pattern;
 
 public class Validator {
 
-    final static String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+    private final static String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
-    final static int MIN_PASSWORD_LENGTH = 6;
+    private final static int MIN_PASSWORD_LENGTH = 6;
 
     public static boolean isEmailValid(String email) {
         Pattern pattern;

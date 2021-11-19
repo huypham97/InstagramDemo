@@ -43,7 +43,7 @@ public abstract class BaseActivity<VM extends BaseViewModel> extends AppCompatAc
     }
 
     protected void setupObserver() {
-        Log.d(TAG, "setupObserver: " + viewModel);
+        Log.d("TEST", "setupObserver: " + viewModel);
         viewModel.messageString.observe(this, new Observer<String>() {
             @Override
             public void onChanged(String message) {

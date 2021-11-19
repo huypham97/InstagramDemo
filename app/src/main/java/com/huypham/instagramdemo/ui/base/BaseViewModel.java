@@ -1,5 +1,7 @@
 package com.huypham.instagramdemo.ui.base;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -20,15 +22,14 @@ public abstract class BaseViewModel extends ViewModel {
     protected CompositeDisposable compositeDisposable;
     protected NetworkUtils networkUtils;
 
+    protected MutableLiveData<Integer> messageStringId = new MutableLiveData<>();
+    protected MutableLiveData<String> messageString = new MutableLiveData<>();
 
     public BaseViewModel(SchedulerProvider schedulerProvider, CompositeDisposable compositeDisposable, NetworkUtils networkUtils) {
         this.schedulerProvider = schedulerProvider;
         this.compositeDisposable = compositeDisposable;
         this.networkUtils = networkUtils;
     }
-
-    MutableLiveData<Integer> messageStringId = new MutableLiveData<>();
-    MutableLiveData<String> messageString = new MutableLiveData<>();
 
     @Override
     protected void onCleared() {

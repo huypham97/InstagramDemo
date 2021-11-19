@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.huypham.instagramdemo.data.repository.UserRepository;
 import com.huypham.instagramdemo.ui.base.BaseActivity;
+import com.huypham.instagramdemo.ui.login.LoginViewModel;
 import com.huypham.instagramdemo.ui.splash.SplashViewModel;
 import com.huypham.instagramdemo.utils.ViewModelProviderFactory;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
@@ -35,9 +36,27 @@ public class ActivityModule {
                                            CompositeDisposable compositeDisposable,
                                            NetworkUtils networkUtils,
                                            UserRepository userRepository) {
-        Supplier<SplashViewModel> supplier = () -> new SplashViewModel(schedulerProvider, compositeDisposable, networkUtils, userRepository);
+        Supplier<SplashViewModel> supplier = () -> new SplashViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkUtils,
+                userRepository);
         ViewModelProviderFactory<SplashViewModel> factory = new ViewModelProviderFactory<>(SplashViewModel.class, supplier);
         return new ViewModelProvider(activity, factory).get(SplashViewModel.class);
+    }
+
+    @Provides
+    LoginViewModel provideLoginViewModel(SchedulerProvider schedulerProvider,
+                                         CompositeDisposable compositeDisposable,
+                                         NetworkUtils networkUtils,
+                                         UserRepository userRepository) {
+        Supplier<LoginViewModel> supplier = () -> new LoginViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkUtils,
+                userRepository);
+        ViewModelProviderFactory<LoginViewModel> factory = new ViewModelProviderFactory<>(LoginViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(LoginViewModel.class);
     }
 
     @Provides

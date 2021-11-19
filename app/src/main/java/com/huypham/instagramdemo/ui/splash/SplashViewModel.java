@@ -18,6 +18,9 @@ public class SplashViewModel extends BaseViewModel {
 
     private UserRepository userRepository;
 
+    protected MutableLiveData<Map<String, String>> launchMain = new MutableLiveData<>();
+    protected MutableLiveData<Map<String, String>> launchLogin = new MutableLiveData<>();
+
     public SplashViewModel(SchedulerProvider schedulerProvider,
                            CompositeDisposable compositeDisposable,
                            NetworkUtils networkUtils,
@@ -25,9 +28,6 @@ public class SplashViewModel extends BaseViewModel {
         super(schedulerProvider, compositeDisposable, networkUtils);
         this.userRepository = userRepository;
     }
-
-    MutableLiveData<Map<String, String>> launchMain = new MutableLiveData<>();
-    MutableLiveData<Map<String, String>> launchLogin = new MutableLiveData<>();
 
     @Override
     protected void onCreate() {
