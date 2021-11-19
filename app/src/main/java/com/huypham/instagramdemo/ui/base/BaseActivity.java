@@ -3,84 +3,48 @@ package com.huypham.instagramdemo.ui.base;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.huypham.instagramdemo.InstagramApplication;
-import com.huypham.instagramdemo.R;
-import com.huypham.instagramdemo.di.component.ActivityComponent;
-import com.huypham.instagramdemo.di.component.DaggerActivityComponent;
-import com.huypham.instagramdemo.di.module.ActivityModule;
-import com.huypham.instagramdemo.utils.display.ScreenUtils;
-import com.huypham.instagramdemo.utils.network.NetworkUtils;
-
 import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 
-public abstract class BaseActivity extends AppCompatActivity implements MvpView, BaseFragment.CallBack {
+public abstract class BaseActivity<VM extends BaseViewModel> extends AppCompatActivity {
+
+    protected VM viewModel;
 
     @Override
-    protected void onCreate(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        injectDependencies(buildActivityComponent());
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(provideLayoutId());
-        ScreenUtils.setLightDisplayStatusBar(this);
-        setUpView();
+        setupObserver();
+        setupView();
     }
 
-    private ActivityComponent buildActivityComponent() {
-        return DaggerActivityComponent.builder()
-                .applicationComponent(((InstagramApplication) getApplication()).getComponent())
-                .activityModule(new ActivityModule(this))
-                .build();
+    protected void setupObserver() {
+        viewModel.messageString.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String message) {
+                showMessage(message);
+            }
+        });
+
+        viewModel.messageStringId.observe(this, new Observer<Integer>() {
+            @Override
+            public void onChanged(Integer resId) {
+                showMessage(resId);
+            }
+        });
     }
 
-    public ActivityComponent getActivityComponent() {
-        return buildActivityComponent();
-    }
-
-    @Override
     public void showMessage(String message) {
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void showMessage(int resId) {
+    public void showMessage(@StringRes int resId) {
         showMessage(getString(resId));
     }
 
-    @Override
-    public boolean isNetworkConnected() {
-        return NetworkUtils.isNetworkConnected(this);
-    }
-
-    @Override
-    public boolean checkInternetConnectionWithMessage() {
-        if (isNetworkConnected()) {
-            return true;
-        } else {
-            showMessage(R.string.network_connection_error);
-            return false;
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-            getSupportFragmentManager().popBackStackImmediate();
-        else super.onBackPressed();
-    }
-
-    protected abstract void injectDependencies(ActivityComponent buildActivityComponent);
+    protected abstract void setupView();
 
     protected abstract int provideLayoutId();
-
-    protected abstract void setUpView();
-
-    @Override
-    public void onFragmentAttached() {
-
-    }
-
-    @Override
-    public void onFragmentDetached(String tag) {
-
-    }
 }
