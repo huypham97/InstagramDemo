@@ -19,7 +19,8 @@ import javax.inject.Inject;
 
 public abstract class BaseActivity<VM extends BaseViewModel> extends AppCompatActivity {
 
-    private static final String TAG = "BaseActivity";
+    public static final String TAG = "BaseActivity";
+
     @Inject
     protected VM viewModel;
 

@@ -6,6 +6,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.huypham.instagramdemo.InstagramApplication;
+import com.huypham.instagramdemo.di.component.DaggerFragmentComponent;
+import com.huypham.instagramdemo.di.component.FragmentComponent;
+import com.huypham.instagramdemo.di.module.FragmentModule;
+
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -14,13 +21,23 @@ import androidx.lifecycle.Observer;
 
 public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
 
+    @Inject
     protected VM viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        injectDependencies(buildFragmentComponent());
         super.onCreate(savedInstanceState);
         setupObserver();
         viewModel.onCreate();
+    }
+
+    private FragmentComponent buildFragmentComponent() {
+        return DaggerFragmentComponent
+                .builder()
+                .applicationComponent(((InstagramApplication) getContext().getApplicationContext()).getComponent())
+                .fragmentModule(new FragmentModule(this))
+                .build();
     }
 
     @Nullable
@@ -66,6 +83,8 @@ public abstract class BaseFragment<VM extends BaseViewModel> extends Fragment {
     }
 
     protected abstract int provideLayoutId();
+
+    protected abstract void injectDependencies(FragmentComponent fragmentComponent);
 
     protected abstract void setupView(View view);
 }

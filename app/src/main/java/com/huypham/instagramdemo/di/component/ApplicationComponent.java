@@ -9,6 +9,7 @@ import com.huypham.instagramdemo.data.remote.NetworkService;
 import com.huypham.instagramdemo.data.repository.UserRepository;
 import com.huypham.instagramdemo.di.ApplicationContext;
 import com.huypham.instagramdemo.di.module.ApplicationModule;
+import com.huypham.instagramdemo.utils.display.ScreenResourceProvider;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
 import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
 
@@ -39,5 +40,7 @@ public interface ApplicationComponent {
     SchedulerProvider getSchedulerProvider();
 
     CompositeDisposable getCompositeDisposable();
+
+    ScreenResourceProvider getScreenResourceProvider();
 
 }

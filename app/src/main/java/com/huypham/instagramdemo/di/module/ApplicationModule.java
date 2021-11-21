@@ -10,6 +10,8 @@ import com.huypham.instagramdemo.data.local.prefs.UserPreferences;
 import com.huypham.instagramdemo.data.remote.NetworkService;
 import com.huypham.instagramdemo.data.remote.Networking;
 import com.huypham.instagramdemo.di.ApplicationContext;
+import com.huypham.instagramdemo.utils.display.ScreenResourceProvider;
+import com.huypham.instagramdemo.utils.display.ScreenUtils;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
 import com.huypham.instagramdemo.utils.rx.RxSchedulerProvider;
 import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
@@ -77,5 +79,11 @@ public class ApplicationModule {
     @Singleton
     NetworkUtils provideNetworkUtils() {
         return new NetworkUtils();
+    }
+
+    @Provides
+    @Singleton
+    ScreenResourceProvider provideScreenResourceProvider() {
+        return new ScreenUtils();
     }
 }

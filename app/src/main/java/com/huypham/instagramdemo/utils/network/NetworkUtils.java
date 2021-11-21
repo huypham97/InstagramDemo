@@ -16,7 +16,7 @@ import retrofit2.HttpException;
 
 public class NetworkUtils {
 
-    private static final String TAG = "NetworkUtils";
+    public static final String TAG = "NetworkUtils";
 
     public static boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) InstagramApplication.getInstance().getSystemService(Context.CONNECTIVITY_SERVICE);

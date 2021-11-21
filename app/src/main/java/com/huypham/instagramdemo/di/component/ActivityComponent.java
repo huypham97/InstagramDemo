@@ -1,8 +1,7 @@
 package com.huypham.instagramdemo.di.component;
 
-import com.huypham.instagramdemo.di.ActivityScope;
+import com.huypham.instagramdemo.di.scope.ActivityScope;
 import com.huypham.instagramdemo.di.module.ActivityModule;
-import com.huypham.instagramdemo.ui.home.HomeFragment;
 import com.huypham.instagramdemo.ui.login.LoginActivity;
 import com.huypham.instagramdemo.ui.login.signUp.SignUpActivity;
 import com.huypham.instagramdemo.ui.main.MainActivity;

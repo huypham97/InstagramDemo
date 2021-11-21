@@ -91,6 +91,26 @@ public class MainActivity extends BaseActivity<MainViewModel> {
     }
 
     private void showHome() {
+        if (activeFragment instanceof HomeFragment)
+            return;
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        HomeFragment fragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(HomeFragment.TAG);
+
+        if (fragment == null) {
+            fragment = HomeFragment.newInstance();
+            fragmentTransaction.add(R.id.containerFragment, fragment, HomeFragment.TAG);
+        } else {
+            fragmentTransaction.show(fragment);
+        }
+
+        if (activeFragment != null)
+            fragmentTransaction.hide(activeFragment);
+
+        fragmentTransaction.commit();
+
+        activeFragment = fragment;
     }
 
     private void showProfile() {
