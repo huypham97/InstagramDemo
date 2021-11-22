@@ -72,11 +72,11 @@ public class PostItemViewHolder extends BaseItemViewHolder<Post, PostItemViewMod
         viewModel.profileImage.observe(this, new Observer<Image>() {
             @Override
             public void onChanged(Image image) {
-                if (image != null) {
+                if (image.url != null) {
                     RequestBuilder<Drawable> glideRequest = Glide
                             .with(ivProfile.getContext())
                             .load(GlideHelper.getProtectedUrl(image.url, image.headers))
-                            .apply(RequestOptions.centerCropTransform())
+                            .apply(RequestOptions.circleCropTransform())
                             .apply(RequestOptions.placeholderOf(R.drawable.ic_profile_selected));
 
                     if (image.placeholderWidth > 0 && image.placeholderHeight > 0) {

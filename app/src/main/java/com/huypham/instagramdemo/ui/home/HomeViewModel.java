@@ -90,10 +90,13 @@ public class HomeViewModel extends BaseViewModel {
                         .subscribe(new Consumer<List<Post>>() {
                             @Override
                             public void accept(List<Post> postList) throws Throwable {
+                                Log.d("TEST", "postList size " + postList.size());
                                 allPosts.addAll(postList);
 
                                 firstPostId = Collections.max(allPosts).id;
                                 lastPostId = Collections.min(allPosts).id;
+
+                                Log.d("TEST", "firsPostId " + firstPostId + " lastPostId " + lastPostId);
 
                                 loading.postValue(false);
                                 posts.postValue(postList);
@@ -114,6 +117,7 @@ public class HomeViewModel extends BaseViewModel {
 
     private void loadMorePosts() {
         if (checkInternetConnectionWithMessage()) {
+            Log.d("TEST", "firsPostId " + firstPostId + " lastPostId " + lastPostId);
             pagination.onNext(new Pair<>(firstPostId, lastPostId));
         }
     }
