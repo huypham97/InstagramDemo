@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -58,17 +59,13 @@ public class SplashActivity extends BaseActivity<SplashViewModel> {
         viewModel.launchMain.observe(this, new Observer<Map<String, String>>() {
             @Override
             public void onChanged(Map<String, String> stringStringMap) {
-                new CountDownTimer(1000, 1000) {
+                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void onTick(long millisUntilFinished) {
-                    }
-
-                    @Override
-                    public void onFinish() {
+                    public void run() {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                     }
-                }.start();
+                }, 3000);
             }
         });
 

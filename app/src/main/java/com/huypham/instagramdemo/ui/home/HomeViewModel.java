@@ -90,6 +90,7 @@ public class HomeViewModel extends BaseViewModel {
                         .subscribe(new Consumer<List<Post>>() {
                             @Override
                             public void accept(List<Post> postList) throws Throwable {
+                                Log.d("TEST", "accept: " + postList.size());
                                 allPosts.addAll(postList);
 
                                 firstPostId = Collections.max(allPosts).id;

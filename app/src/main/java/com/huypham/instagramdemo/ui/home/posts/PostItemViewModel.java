@@ -76,6 +76,7 @@ public class PostItemViewModel extends BaseItemViewModel<Post> {
     LiveData<Image> profileImage = Transformations.map(data, new Function<Post, Image>() {
         @Override
         public Image apply(Post input) {
+            Log.d("TEST", "apply: " + input.creator.profilePicUrl);
             return new Image(input.creator.profilePicUrl, headers);
         }
     });

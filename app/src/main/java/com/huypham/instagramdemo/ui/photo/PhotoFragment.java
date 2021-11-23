@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.huypham.instagramdemo.R;
+import com.huypham.instagramdemo.di.component.FragmentComponent;
+import com.huypham.instagramdemo.ui.base.BaseFragment;
 import com.huypham.instagramdemo.ui.profile.ProfileFragment;
 
 /**
@@ -16,7 +18,7 @@ import com.huypham.instagramdemo.ui.profile.ProfileFragment;
  * Use the {@link PhotoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PhotoFragment extends Fragment {
+public class PhotoFragment extends BaseFragment<PhotoViewModel> {
 
     public static final String TAG = "PhotoFragment";
 
@@ -36,5 +38,20 @@ public class PhotoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_photo, container, false);
+    }
+
+    @Override
+    protected int provideLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected void injectDependencies(FragmentComponent fragmentComponent) {
+
+    }
+
+    @Override
+    protected void setupView(View view) {
+
     }
 }
