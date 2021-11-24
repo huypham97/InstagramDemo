@@ -2,6 +2,7 @@ package com.huypham.instagramdemo.ui.home;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,6 +99,8 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
             @Override
             public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                Log.d("TEST", "onScrolled: getItemCount " + recyclerView.getLayoutManager().getItemCount());
+                Log.d("TEST", "onScrolled: findLastCompletelyVisibleItemPosition " + ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition());
                 if (recyclerView.getLayoutManager() instanceof LinearLayoutManager
                         && recyclerView.getLayoutManager().getItemCount() > 0
                         && recyclerView.getLayoutManager().getItemCount() == ((LinearLayoutManager) recyclerView.getLayoutManager()).findLastCompletelyVisibleItemPosition() + 1) {

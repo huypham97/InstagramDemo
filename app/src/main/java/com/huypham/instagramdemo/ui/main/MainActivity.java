@@ -113,9 +113,49 @@ public class MainActivity extends BaseActivity<MainViewModel> {
         activeFragment = fragment;
     }
 
-    private void showProfile() {
+    private void showAddPhoto() {
+        if (activeFragment instanceof PhotoFragment)
+            return;
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        PhotoFragment fragment = (PhotoFragment) getSupportFragmentManager().findFragmentByTag(PhotoFragment.TAG);
+
+        if (fragment == null) {
+            fragment = PhotoFragment.newInstance();
+            fragmentTransaction.add(R.id.containerFragment, fragment, PhotoFragment.TAG);
+        } else {
+            fragmentTransaction.show(fragment);
+        }
+
+        if (activeFragment != null)
+            fragmentTransaction.hide(activeFragment);
+
+        fragmentTransaction.commit();
+
+        activeFragment = fragment;
     }
 
-    private void showAddPhoto() {
+    private void showProfile() {
+        if (activeFragment instanceof ProfileFragment)
+            return;
+
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        ProfileFragment fragment = (ProfileFragment) getSupportFragmentManager().findFragmentByTag(PhotoFragment.TAG);
+
+        if (fragment == null) {
+            fragment = ProfileFragment.newInstance();
+            fragmentTransaction.add(R.id.containerFragment, fragment, ProfileFragment.TAG);
+        } else {
+            fragmentTransaction.show(fragment);
+        }
+
+        if (activeFragment != null)
+            fragmentTransaction.hide(activeFragment);
+
+        fragmentTransaction.commit();
+
+        activeFragment = fragment;
     }
 }
