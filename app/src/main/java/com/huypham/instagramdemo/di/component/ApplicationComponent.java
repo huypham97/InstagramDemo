@@ -8,10 +8,14 @@ import com.huypham.instagramdemo.InstagramApplication;
 import com.huypham.instagramdemo.data.remote.NetworkService;
 import com.huypham.instagramdemo.data.repository.UserRepository;
 import com.huypham.instagramdemo.di.ApplicationContext;
+import com.huypham.instagramdemo.di.TempDirectory;
 import com.huypham.instagramdemo.di.module.ApplicationModule;
+import com.huypham.instagramdemo.utils.common.FileHelper;
 import com.huypham.instagramdemo.utils.display.ScreenResourceProvider;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
 import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
+
+import java.io.File;
 
 import javax.inject.Singleton;
 
@@ -41,6 +45,11 @@ public interface ApplicationComponent {
 
     CompositeDisposable getCompositeDisposable();
 
+    @TempDirectory
+    File getTemporaryDirectory();
+
     ScreenResourceProvider getScreenResourceProvider();
+
+    FileHelper getFileHelper();
 
 }

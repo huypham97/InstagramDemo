@@ -3,6 +3,7 @@ package com.huypham.instagramdemo.di.component;
 import com.huypham.instagramdemo.di.scope.FragmentScope;
 import com.huypham.instagramdemo.di.module.FragmentModule;
 import com.huypham.instagramdemo.ui.home.HomeFragment;
+import com.huypham.instagramdemo.ui.photo.PhotoFragment;
 
 import dagger.Component;
 
@@ -12,4 +13,5 @@ public interface FragmentComponent {
 
     void inject(HomeFragment fragment);
 
+    void inject(PhotoFragment fragment);
 }

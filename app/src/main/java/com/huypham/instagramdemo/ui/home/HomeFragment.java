@@ -14,6 +14,7 @@ import com.huypham.instagramdemo.di.component.ActivityComponent;
 import com.huypham.instagramdemo.di.component.FragmentComponent;
 import com.huypham.instagramdemo.ui.base.BaseFragment;
 import com.huypham.instagramdemo.ui.home.posts.PostAdapter;
+import com.huypham.instagramdemo.ui.main.MainSharedViewModel;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -41,6 +42,9 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
         fragment.setArguments(args);
         return fragment;
     }
+
+    @Inject
+    MainSharedViewModel mainSharedViewModel;
 
     @Inject
     LinearLayoutManager linearLayoutManager;
@@ -84,6 +88,13 @@ public class HomeFragment extends BaseFragment<HomeViewModel> {
             public void onChanged(List<Post> postList) {
                 postAdapter.updateList(postList);
                 rvPosts.scrollToPosition(0);
+            }
+        });
+
+        mainSharedViewModel.newPost.observe(this, new Observer<Post>() {
+            @Override
+            public void onChanged(Post post) {
+                viewModel.onNewPost(post);
             }
         });
     }

@@ -10,11 +10,16 @@ import com.huypham.instagramdemo.data.local.prefs.UserPreferences;
 import com.huypham.instagramdemo.data.remote.NetworkService;
 import com.huypham.instagramdemo.data.remote.Networking;
 import com.huypham.instagramdemo.di.ApplicationContext;
+import com.huypham.instagramdemo.di.TempDirectory;
+import com.huypham.instagramdemo.utils.common.FileHelper;
+import com.huypham.instagramdemo.utils.common.FileUtils;
 import com.huypham.instagramdemo.utils.display.ScreenResourceProvider;
 import com.huypham.instagramdemo.utils.display.ScreenUtils;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
 import com.huypham.instagramdemo.utils.rx.RxSchedulerProvider;
 import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
+
+import java.io.File;
 
 import javax.inject.Singleton;
 
@@ -83,7 +88,20 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
+    @TempDirectory
+    File provideTempDirectory() {
+        return new FileUtils().getDirectory(application, "temp");
+    }
+
+    @Provides
+    @Singleton
     ScreenResourceProvider provideScreenResourceProvider() {
         return new ScreenUtils();
+    }
+
+    @Provides
+    @Singleton
+    FileHelper provideFileHelper() {
+        return new FileUtils();
     }
 }

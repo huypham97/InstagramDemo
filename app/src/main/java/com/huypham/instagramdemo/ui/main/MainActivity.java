@@ -30,6 +30,9 @@ public class MainActivity extends BaseActivity<MainViewModel> {
 
     private BottomNavigationView bottomNavView;
 
+    @Inject
+    MainSharedViewModel mainSharedViewModel;
+
     @Override
     protected int provideLayoutId() {
         return R.layout.activity_main;
@@ -86,6 +89,21 @@ public class MainActivity extends BaseActivity<MainViewModel> {
             @Override
             public void onChanged(Boolean aBoolean) {
                 showProfile();
+            }
+        });
+
+        mainSharedViewModel.homeRedirection.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                bottomNavView.setSelectedItemId(R.id.itemHome);
+            }
+        });
+
+        mainSharedViewModel.logoutRedirection.observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                startActivity(new Intent(MainActivity.this, SplashActivity.class));
+                finish();
             }
         });
     }

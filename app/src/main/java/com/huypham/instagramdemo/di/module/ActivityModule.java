@@ -13,11 +13,13 @@ import com.huypham.instagramdemo.data.repository.UserRepository;
 import com.huypham.instagramdemo.ui.base.BaseActivity;
 import com.huypham.instagramdemo.ui.login.LoginViewModel;
 import com.huypham.instagramdemo.ui.login.signUp.SignUpViewModel;
+import com.huypham.instagramdemo.ui.main.MainSharedViewModel;
 import com.huypham.instagramdemo.ui.main.MainViewModel;
 import com.huypham.instagramdemo.ui.splash.SplashViewModel;
 import com.huypham.instagramdemo.utils.ViewModelProviderFactory;
 import com.huypham.instagramdemo.utils.network.NetworkUtils;
 import com.huypham.instagramdemo.utils.rx.SchedulerProvider;
+import com.mindorks.paracamera.Camera;
 
 
 import dagger.Module;
@@ -88,6 +90,18 @@ public class ActivityModule {
     }
 
     @Provides
+    MainSharedViewModel provideMainSharedViewModel(SchedulerProvider schedulerProvider,
+                                                   CompositeDisposable compositeDisposable,
+                                                   NetworkUtils networkUtils) {
+        Supplier<MainSharedViewModel> supplier = () -> new MainSharedViewModel(
+                schedulerProvider,
+                compositeDisposable,
+                networkUtils);
+        ViewModelProviderFactory<MainSharedViewModel> factory = new ViewModelProviderFactory<>(MainSharedViewModel.class, supplier);
+        return new ViewModelProvider(activity, factory).get(MainSharedViewModel.class);
+    }
+
+    @Provides
     LinearLayoutManager provideLinearLayoutManager(AppCompatActivity activity) {
         return new LinearLayoutManager(activity);
     }
@@ -95,5 +109,18 @@ public class ActivityModule {
     @Provides
     PublishProcessor<Pair<String, String>> providePagination() {
         return PublishProcessor.create();
+    }
+
+    @Provides
+    Camera provideCamera() {
+        return new Camera.Builder()
+                .resetToCorrectOrientation(true)
+                .setTakePhotoRequestCode(Camera.REQUEST_TAKE_PHOTO)
+                .setDirectory("instaClone")
+                .setName("instaClick ${System.currentTimeMillis()}")
+                .setCompression(75)
+                .setImageFormat(Camera.IMAGE_JPG)
+                .setImageHeight(100)
+                .build(activity);
     }
 }
