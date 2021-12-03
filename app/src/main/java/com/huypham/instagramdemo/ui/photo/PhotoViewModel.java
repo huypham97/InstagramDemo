@@ -45,9 +45,11 @@ public class PhotoViewModel extends BaseViewModel {
         this.photoRepository = photoRepository;
         this.directory = directory;
         this.fileHelper = fileHelper;
+
+        user = userRepository.getCurrentUser();
     }
 
-    private User user = userRepository.getCurrentUser();
+    private User user;
 
     MutableLiveData<Boolean> loading = new MutableLiveData<>();
 
